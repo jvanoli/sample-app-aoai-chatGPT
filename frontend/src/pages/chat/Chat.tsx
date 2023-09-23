@@ -9,6 +9,7 @@ import uuid from 'react-uuid';
 
 import styles from "./Chat.module.css";
 import Azure from "../../assets/Azure.svg";
+import AskHackettLogo from "../../assets/AskHackett-OS-Icons-23.svg";
 
 import {
     ChatMessage,
@@ -28,6 +29,7 @@ import {
 } from "../../api";
 import { Answer } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
+import { QuestionSuggest } from "../../components/QuestionSuggest";
 import { ChatHistoryPanel } from "../../components/ChatHistory/ChatHistoryPanel";
 import { AppStateContext } from "../../state/AppProvider";
 import { useBoolean } from "@fluentui/react-hooks";
@@ -86,13 +88,14 @@ const Chat = () => {
     }
     
     const getUserInfoList = async () => {
+        /* setShowAuthMessage(false); */
         const userInfoList = await getUserInfo();
         if (userInfoList.length === 0 && window.location.hostname !== "127.0.0.1") {
             setShowAuthMessage(true);
         }
         else {
             setShowAuthMessage(false);
-        }
+        } 
     }
 
     const makeApiRequestWithoutCosmosDB = async (question: string, conversationId?: string) => {
@@ -540,12 +543,35 @@ const Chat = () => {
                         {!messages || messages.length < 1 ? (
                             <Stack className={styles.chatEmptyState}>
                                 <img
-                                    src={Azure}
+                                    src={AskHackettLogo}
                                     className={styles.chatIcon}
                                     aria-hidden="true"
                                 />
-                                <h1 className={styles.chatEmptyStateTitle}>Start chatting</h1>
+                                <h1 className={styles.chatEmptyStateTitle}>Ask Hackett</h1>
                                 <h2 className={styles.chatEmptyStateSubtitle}>This chatbot is configured to answer your questions</h2>
+                                <div className={styles.suggestionsContainer}>
+                                    <QuestionSuggest placeholder="What are the top finance priorities for 2023"
+                                        disabled={isLoading}
+                                        onSend={(question, id) => {
+                                            appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
+                                        }}
+                                        conversationId={appStateContext?.state.currentChat?.id ? appStateContext?.state.currentChat?.id : undefined}
+                                    />
+                                    <QuestionSuggest placeholder="What is DWC?"
+                                        disabled={isLoading}
+                                        onSend={(question, id) => {
+                                            appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
+                                        }}
+                                        conversationId={appStateContext?.state.currentChat?.id ? appStateContext?.state.currentChat?.id : undefined}
+                                    />
+                                    <QuestionSuggest placeholder="Create a table with the 5 most important metrics in digital world class companies?"
+                                        disabled={isLoading}
+                                        onSend={(question, id) => {
+                                            appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
+                                        }}
+                                        conversationId={appStateContext?.state.currentChat?.id ? appStateContext?.state.currentChat?.id : undefined}
+                                    />
+                                </div>
                             </Stack>
                         ) : (
                             <div className={styles.chatMessageStream} style={{ marginBottom: isLoading ? "40px" : "0px"}} role="log">
