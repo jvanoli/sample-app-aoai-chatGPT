@@ -1,4 +1,4 @@
-.questionSuggestBox {
+.chatStarterBox {
     /* height: 60px; */ 
     position: relative;
     /* left: 6.5%;
@@ -11,7 +11,7 @@
     margin: 6px 8px;
 }
 
-.questionSuggestTextArea {
+.chatStarterTextArea {
     width: 100%;
     /* line-height: 40px; */
     font-style: normal;
