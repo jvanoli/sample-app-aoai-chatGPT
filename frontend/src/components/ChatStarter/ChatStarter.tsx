@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Stack, Label } from "@fluentui/react";
 import { SendRegular } from "@fluentui/react-icons";
 import Send from "../../assets/Send.svg";
-import styles from "./QuestionSuggest.module.css";
+import styles from "./ChatStarter.module.css";
 
 interface Props {
     onSend: (question: string, id?: string) => void;
@@ -12,7 +12,7 @@ interface Props {
     conversationId?: string;
 }
 
-export const QuestionSuggest = ({ onSend, disabled, placeholder, conversationId }: Props) => {
+export const ChatStarter = ({ onSend, disabled, placeholder, conversationId }: Props) => {
     const [question, setQuestion] = useState<string>("");
 
     const sendQuestion = () => {
@@ -23,8 +23,8 @@ export const QuestionSuggest = ({ onSend, disabled, placeholder, conversationId 
     };
 
     return (
-        <Stack horizontal className={styles.questionSuggestBox} onClick={sendQuestion} >
-            <Label className={styles.questionSuggestTextArea}> 
+        <Stack horizontal className={styles.chatStarterBox} onClick={sendQuestion} >
+            <Label className={styles.chatStarterTextArea}> 
                 {placeholder} 
             </Label>
         </Stack>

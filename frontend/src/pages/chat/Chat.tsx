@@ -29,7 +29,7 @@ import {
 } from "../../api";
 import { Answer } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
-import { QuestionSuggest } from "../../components/QuestionSuggest";
+import { ChatStarter } from "../../components/ChatStarter";
 import { ChatHistoryPanel } from "../../components/ChatHistory/ChatHistoryPanel";
 import { AppStateContext } from "../../state/AppProvider";
 import { useBoolean } from "@fluentui/react-hooks";
@@ -550,21 +550,21 @@ const Chat = () => {
                                 <h1 className={styles.chatEmptyStateTitle}>Ask Hackett</h1>
                                 <h2 className={styles.chatEmptyStateSubtitle}>This chatbot is configured to answer your questions</h2>
                                 <div className={styles.suggestionsContainer}>
-                                    <QuestionSuggest placeholder="What are the top finance priorities for 2023"
+                                    <ChatStarter placeholder="What are the top finance priorities for 2023"
                                         disabled={isLoading}
                                         onSend={(question, id) => {
                                             appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
                                         }}
                                         conversationId={appStateContext?.state.currentChat?.id ? appStateContext?.state.currentChat?.id : undefined}
                                     />
-                                    <QuestionSuggest placeholder="What is DWC?"
+                                    <ChatStarter placeholder="What is DWC?"
                                         disabled={isLoading}
                                         onSend={(question, id) => {
                                             appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
                                         }}
                                         conversationId={appStateContext?.state.currentChat?.id ? appStateContext?.state.currentChat?.id : undefined}
                                     />
-                                    <QuestionSuggest placeholder="Create a table with the 5 most important metrics in digital world class companies?"
+                                    <ChatStarter placeholder="Create a table with the 5 most important metrics in digital world class companies?"
                                         disabled={isLoading}
                                         onSend={(question, id) => {
                                             appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
