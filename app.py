@@ -337,6 +337,29 @@ def conversation_without_data(request_body):
     else:
         return Response(stream_without_data(response, history_metadata), mimetype='text/event-stream')
 
+# 
+@app.route("/getcontext")
+def get_context():
+    """
+    This endpoint is used to get the URL arguments from the ReactJS frontend application
+    """
+    # Easy option is to send all the arguments as JSON 
+    # return jsonify(request.args), 200
+    # Other manual option is to send a custom formatted JSON object
+    onestreampage = request.args.get('OneStreamPage')
+    if onestreampage:
+        print(f"OneStream Page is: {onestreampage}")
+    
+    CHATDMS_STARTERS = os.environ.get("CHATDMS_STARTERS")
+    print(f"CHATDMS_STARTERS is: {CHATDMS_STARTERS}")
+    # Should see if CHATDMS_STARTERS evals to list, else give an error
+    for starter in eval(CHATDMS_STARTERS):
+        print(f"CHATDMS_TOPIC is: {starter}")
+    # Output the object
+    return jsonify({"onestreampage": str(onestreampage),
+                    "starters": eval(CHATDMS_STARTERS),
+                    }), 200
+    
 
 @app.route("/conversation", methods=["GET", "POST"])
 def conversation():
