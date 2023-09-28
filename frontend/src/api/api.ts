@@ -309,16 +309,15 @@ export const getChatContext = async (): Promise<ChatContext> => {
                 starters: []
             }
         }else{
-            // DEBUG
-            console.log(respJson.message);
             return {
-                onestreampage: respJson.message.onestreampage,
-                starters: respJson.message.starters,
+                onestreampage: respJson.onestreampage,
+                starters: respJson.starters,
             }
         }
     })
     .catch((err) => {
         console.error("There was an issue fetching Chat Context from the backend.");
+        console.error(err.stringify())
         return {
             onestreampage: 'None',
             starters: []

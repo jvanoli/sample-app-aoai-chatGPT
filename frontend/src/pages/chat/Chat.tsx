@@ -550,7 +550,7 @@ const Chat = () => {
                                 <h1 className={styles.chatEmptyStateTitle}>Ask Hackett</h1>
                                 <h2 className={styles.chatEmptyStateSubtitle}>This chatbot is configured to answer your questions</h2>
                                 <h3 className={styles.chatEmptyStateSubtitle}>OneStream Page: {appStateContext?.state.chatContext.onestreampage} </h3>
-                                <h3 className={styles.chatEmptyStateSubtitle}>Starters: {appStateContext?.state.chatContext.starters} </h3>
+                                <h3 className={styles.chatEmptyStateSubtitle}>Starters: {appStateContext?.state.chatContext.starters } </h3>
                                 
                                 <div className={styles.suggestionsContainer}>
                                     <ChatStarter placeholder="What are the top finance priorities for 2023"
