@@ -82,6 +82,13 @@ export type CosmosDBHealth = {
     status: string
 }
 
+// This is a copy of ConsmosDBHealth
+export type ChatContext = { 
+    onestreampage: string,
+    starters: string[]
+}
+
+
 export enum ChatHistoryLoadingState {
     Loading = "loading",
     Success = "success",
