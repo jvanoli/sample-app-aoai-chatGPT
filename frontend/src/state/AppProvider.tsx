@@ -73,7 +73,7 @@ type AppStateProviderProps = {
             return result;
         }
         getGetChatContext();
-        // ---
+        // --------------------------------------------- This ABOVE i've added to get the Context from the Backend
 
         // Check for cosmosdb config and fetch initial data here
         const fetchChatHistory = async (): Promise<Conversation[] | null> => {
