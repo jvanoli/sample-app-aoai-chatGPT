@@ -88,15 +88,14 @@ const Chat = () => {
     }
     
     const getUserInfoList = async () => {
-        setShowAuthMessage(false); 
-        /* const userInfoList = await getUserInfo();
-        if (userInfoList.length === 0 && window.location.hostname !== "127.0.0.1") {
+        const userInfoList = await getUserInfo();
+        if (userInfoList.length === 0 && (window.location.hostname !== "127.0.0.1" || window.location.hostname !== "localhost" ) ) {
+            /* show the auth error if not in localhost */
             setShowAuthMessage(true);
         }
         else {
             setShowAuthMessage(false);
         } 
-        */
     }
 
     const makeApiRequestWithoutCosmosDB = async (question: string, conversationId?: string) => {
