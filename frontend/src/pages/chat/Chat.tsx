@@ -88,14 +88,15 @@ const Chat = () => {
     }
     
     const getUserInfoList = async () => {
-        /* setShowAuthMessage(false); */
-        const userInfoList = await getUserInfo();
+        setShowAuthMessage(false); 
+        /* const userInfoList = await getUserInfo();
         if (userInfoList.length === 0 && window.location.hostname !== "127.0.0.1") {
             setShowAuthMessage(true);
         }
         else {
             setShowAuthMessage(false);
         } 
+        */
     }
 
     const makeApiRequestWithoutCosmosDB = async (question: string, conversationId?: string) => {
