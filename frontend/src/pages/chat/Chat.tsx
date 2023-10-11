@@ -550,21 +550,21 @@ const Chat = () => {
                                 <h1 className={styles.chatEmptyStateTitle}>Ask Hackett</h1>
                                 <h2 className={styles.chatEmptyStateSubtitle}>This chatbot is configured to answer your questions</h2>
                                 <div className={styles.suggestionsContainer}>
-                                    <QuestionSuggest placeholder="What are the top finance priorities for 2023"
+                                    <QuestionSuggest placeholder="What is Digital World Class?"
                                         disabled={isLoading}
                                         onSend={(question, id) => {
                                             appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
                                         }}
                                         conversationId={appStateContext?.state.currentChat?.id ? appStateContext?.state.currentChat?.id : undefined}
                                     />
-                                    <QuestionSuggest placeholder="What is DWC?"
+                                    <QuestionSuggest placeholder="Top 5 Digital World Class metrics"
                                         disabled={isLoading}
                                         onSend={(question, id) => {
                                             appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
                                         }}
                                         conversationId={appStateContext?.state.currentChat?.id ? appStateContext?.state.currentChat?.id : undefined}
                                     />
-                                    <QuestionSuggest placeholder="Create a table with the 5 most important metrics in digital world class companies?"
+                                    <QuestionSuggest placeholder="Top Finance Priorities for 2023"
                                         disabled={isLoading}
                                         onSend={(question, id) => {
                                             appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
