@@ -560,21 +560,21 @@ const Chat = () => {
                                 */}
                                 
                                 <div className={styles.suggestionsContainer}>
-                                    <QuestionSuggest placeholder="What is Digital World Class?"
+                                    <ChatStarter placeholder="What is Digital World Class?"
                                         disabled={isLoading}
                                         onSend={(question, id) => {
                                             appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
                                         }}
                                         conversationId={appStateContext?.state.currentChat?.id ? appStateContext?.state.currentChat?.id : undefined}
                                     />
-                                    <QuestionSuggest placeholder="Top 5 Digital World Class metrics"
+                                    <ChatStarter placeholder="Top 5 Digital World Class metrics"
                                         disabled={isLoading}
                                         onSend={(question, id) => {
                                             appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
                                         }}
                                         conversationId={appStateContext?.state.currentChat?.id ? appStateContext?.state.currentChat?.id : undefined}
                                     />
-                                    <QuestionSuggest placeholder="Top Finance Priorities for 2023"
+                                    <ChatStarter placeholder="Top Finance Priorities for 2023"
                                         disabled={isLoading}
                                         onSend={(question, id) => {
                                             appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
