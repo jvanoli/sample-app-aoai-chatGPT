@@ -1,4 +1,4 @@
-import { UserInfo, ConversationRequest, Conversation, ChatMessage, CosmosDBHealth, CosmosDBStatus } from "./models";
+import { UserInfo, ConversationRequest, Conversation, ChatMessage, CosmosDBHealth, CosmosDBStatus, ChatContext } from "./models";
 import { chatHistorySampleData } from "../constants/chatHistory";
 
 export async function conversationApi(options: ConversationRequest, abortSignal: AbortSignal): Promise<Response> {
@@ -297,3 +297,31 @@ export const historyEnsure = async (): Promise<CosmosDBHealth> => {
     return response;
 }
 
+export const getChatContext = async (): Promise<ChatContext> => {
+    const response = await fetch("/getcontext", {
+        method: "GET",
+    })
+    .then(async res => {
+        let respJson = await res.json();    
+        if(!res.ok){
+            return {
+                onestreampage: 'None',
+                starters: []
+            }
+        }else{
+            return {
+                onestreampage: respJson.onestreampage,
+                starters: respJson.starters,
+            }
+        }
+    })
+    .catch((err) => {
+        console.error("There was an issue fetching Chat Context from the backend.");
+        console.error(err.stringify())
+        return {
+            onestreampage: 'None',
+            starters: []
+        }
+    })
+    return response;
+}

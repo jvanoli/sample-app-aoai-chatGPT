@@ -29,7 +29,7 @@ import {
 } from "../../api";
 import { Answer } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
-import { QuestionSuggest } from "../../components/QuestionSuggest";
+import { ChatStarter } from "../../components/ChatStarter";
 import { ChatHistoryPanel } from "../../components/ChatHistory/ChatHistoryPanel";
 import { AppStateContext } from "../../state/AppProvider";
 import { useBoolean } from "@fluentui/react-hooks";
@@ -88,14 +88,18 @@ const Chat = () => {
     }
     
     const getUserInfoList = async () => {
-        /* setShowAuthMessage(false); */
-        const userInfoList = await getUserInfo();
-        if (userInfoList.length === 0 && window.location.hostname !== "127.0.0.1") {
-            setShowAuthMessage(true);
-        }
-        else {
+        console.log("hostname: " + window.location.hostname);
+        if (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost" ) {
             setShowAuthMessage(false);
-        } 
+        } else {
+            const userInfoList = await getUserInfo();
+            if (userInfoList.length === 0 ) {
+                setShowAuthMessage(true);
+            }
+            else {
+                setShowAuthMessage(false);
+            } 
+        }       
     }
 
     const makeApiRequestWithoutCosmosDB = async (question: string, conversationId?: string) => {
@@ -549,6 +553,12 @@ const Chat = () => {
                                 />
                                 <h1 className={styles.chatEmptyStateTitle}>Ask Hackett</h1>
                                 <h2 className={styles.chatEmptyStateSubtitle}>This chatbot is configured to answer your questions</h2>
+                                
+                                {/*  Comment this for now
+                                <h3 className={styles.chatEmptyStateSubtitle}>OneStream Page: {appStateContext?.state.chatContext.onestreampage} </h3>
+                                <h3 className={styles.chatEmptyStateSubtitle}>Starters: {appStateContext?.state.chatContext.starters } </h3> 
+                                */}
+                                
                                 <div className={styles.suggestionsContainer}>
                                     <QuestionSuggest placeholder="What is Digital World Class?"
                                         disabled={isLoading}

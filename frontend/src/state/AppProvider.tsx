@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, ReactNode, useEffect } from 'react';
 import { appStateReducer } from './AppReducer';
-import { ChatHistoryLoadingState, CosmosDBHealth, historyList, historyEnsure, CosmosDBStatus } from '../api';
+import { ChatHistoryLoadingState, CosmosDBHealth, ChatContext, getChatContext, historyList, historyEnsure, CosmosDBStatus } from '../api';
 import { Conversation } from '../api';
   
 export interface AppState {
@@ -10,11 +10,13 @@ export interface AppState {
     chatHistory: Conversation[] | null;
     filteredChatHistory: Conversation[] | null;
     currentChat: Conversation | null;
+    chatContext: ChatContext; // This is a copy of isCosmosDBAvailable: ConsmosDBHealth
 }
 
 export type Action =
     | { type: 'TOGGLE_CHAT_HISTORY' }
     | { type: 'SET_COSMOSDB_STATUS', payload: CosmosDBHealth }
+    | { type: 'GET_CHAT_CONTEXT', payload: ChatContext }  // This is a copy of ConsmosDBHealth
     | { type: 'UPDATE_CHAT_HISTORY_LOADING_STATE', payload: ChatHistoryLoadingState }
     | { type: 'UPDATE_CURRENT_CHAT', payload: Conversation | null }
     | { type: 'UPDATE_FILTERED_CHAT_HISTORY', payload: Conversation[] | null }
@@ -34,6 +36,10 @@ const initialState: AppState = {
     isCosmosDBAvailable: {
         cosmosDB: false,
         status: CosmosDBStatus.NotConfigured,
+    },
+    chatContext: {   // This is a copy of isCosmosDBAvailable:
+        onestreampage: 'None',
+        starters: []
     }
 };
 
@@ -50,6 +56,25 @@ type AppStateProviderProps = {
     const [state, dispatch] = useReducer(appStateReducer, initialState);
 
     useEffect(() => {
+        // Get the chat context from the backend
+        const getGetChatContext = async (): Promise<ChatContext | null> => {
+            const result = await getChatContext().then((response) => {
+                if(response){
+                    dispatch({ type: 'GET_CHAT_CONTEXT', payload: response });
+                }else{
+                    dispatch({ type: 'GET_CHAT_CONTEXT', payload: response });
+                }
+                return response;
+            })
+            .catch((err) => {
+                dispatch({ type: 'GET_CHAT_CONTEXT', payload: {onestreampage: 'None', starters: []} });
+                return null
+            })
+            return result;
+        }
+        getGetChatContext();
+        // --------------------------------------------- This ABOVE i've added to get the Context from the Backend
+
         // Check for cosmosdb config and fetch initial data here
         const fetchChatHistory = async (): Promise<Conversation[] | null> => {
             const result = await historyList().then((response) => {
